@@ -27,34 +27,76 @@ function getComputerChoice(){
  * I have to change this function to return an int to get an score
  */
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection, count) {
      
+     let internalCount = [... count]; //Player-Computer
      let strPlayer = playerSelection.toLowerCase(); // We make case insensitive
 
      // rock beats scissors, scissors beat paper, paper beats rock (if they are the same it is a draw)
      if (strPlayer === computerSelection) {
-         return "It's a Draw! " + capitalize(computerSelection) + " equals " + capitalize(playerSelection);
+         console.log("It's a Draw! " + capitalize(computerSelection) + " equals " + capitalize(playerSelection));
+         return internalCount; // If it is a draw I dont update the count
      }
      switch (strPlayer){
-         case 'rock':
-            return (computerSelection === 'scissors') ? "You Win! Rock beats Scissors" : "You Lose! Paper beats Rock";
+         case 'rock':  // I leave the original code commented
+             //return (computerSelection === 'scissors') ? "You Win! Rock beats Scissors" : "You Lose! Paper beats Rock";
+            if (computerSelection === 'scissors'){
+               console.log("You Win! Rock beats Scissors");
+               internalCount[0]++;
+               return internalCount;
+            }
+            console.log("You Lose! Paper beats Rock");
+            internalCount[1]++;
+            return internalCount;
+
          case 'paper':
-            return (computerSelection === 'rock') ? "You Win! Paper beats Rock" : "You Lose! Scissors beat Paper";
+            //return (computerSelection === 'rock') ? "You Win! Paper beats Rock" : "You Lose! Scissors beat Paper";
+            if (computerSelection === 'rock'){
+               console.log("You Win! Paper beats Rock");
+               internalCount[0]++;
+               return internalCount;
+            }
+            console.log("You Lose! Scissors beat Paper");
+            internalCount[1]++;
+            return internalCount;
+
          case 'scissors':
-               return (computerSelection === 'paper') ? "You Win! Scissors beats Paper" : "You Lose! Rock beat Scissors"
+            //return (computerSelection === 'paper') ? "You Win! Scissors beats Paper" : "You Lose! Rock beat Scissors"
+            if (computerSelection === 'paper'){
+               console.log("You Win! Scissors beats Paper");
+               internalCount[0]++;
+               return internalCount;
+            }
+            console.log("You Lose! Rock beat Scissors");
+            internalCount[1]++;
+            return internalCount;
+
          default:
-               return "Please, choose Rock, Paper or Scissors"
+               //return "Please, choose Rock, Paper or Scissors"
+               console.log( "Please, choose Rock, Paper or Scissors");
+               return internalCount;
        }
    
    }
    
    function game() {
 
+      let count=[0,0];
       for (let i=0;i<5;i++){
          const playerSelection = prompt("Choose rock, paper or scissors");
+         if (playerSelection == null) {
+            console.log("I hope you had fun. See you!")
+            return;
+         }
          const computerSelection = getComputerChoice();
-         console.log(playRound(playerSelection, computerSelection));
+         count = playRound(playerSelection, computerSelection, count); // Now the function returns a counter to keep track
+         console.log("Total Score. Player: " + count[0] + " Computer: " + count[1])
       }
+
+      if (count[0]>count[1]) console.log("Congratulations. You won!");
+      else if (count[0]<count[1]) console.log("Sorry. You lost");
+      else console.log ("It was a draw");
+
    }
 
    game();
