@@ -79,19 +79,15 @@ function playRound(playerSelection, computerSelection, count) {
    
    }
    
-   function game() {
+   function game(playerSelection) {
 
       let count=[0,0];
-      for (let i=0;i<5;i++){
-         const playerSelection = prompt("Choose rock, paper or scissors");
-         if (playerSelection == null) {
-            console.log("I hope you had fun. See you!")
-            return;
-         }
-         const computerSelection = getComputerChoice();
-         count = playRound(playerSelection, computerSelection, count); // Now the function returns a counter to keep track
-         console.log("Total Score. Player: " + count[0] + " Computer: " + count[1])
-      }
+      
+      const computerSelection = getComputerChoice();
+      count = playRound(playerSelection, computerSelection, count); // Now the function returns a counter to keep track
+      // This I will send to a div now
+      console.log("Total Score. Player: " + count[0] + " Computer: " + count[1])
+      
 
       if (count[0]>count[1]) console.log("Congratulations. You won!");
       else if (count[0]<count[1]) console.log("Sorry. You lost");
@@ -99,4 +95,11 @@ function playRound(playerSelection, computerSelection, count) {
 
    }
 
-   game();
+   const btn = document.querySelectorAll('button');
+   btn.forEach(button=>button.addEventListener('click', function(e) {
+      game(this.id);
+      // I still have to display the results on the web
+      // Instead of playing game I will probably add the logic and total counter out here
+    }));
+
+ 
