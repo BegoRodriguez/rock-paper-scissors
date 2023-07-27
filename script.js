@@ -31,75 +31,77 @@ function playRound(playerSelection, computerSelection, count) {
      
      let internalCount = [... count]; //Player-Computer
      let strPlayer = playerSelection.toLowerCase(); // We make case insensitive
+     const message = document.querySelector('#message'); // To update the messages on screen
+     
 
      // rock beats scissors, scissors beat paper, paper beats rock (if they are the same it is a draw)
      if (strPlayer === computerSelection) {
-         console.log("It's a Draw! " + capitalize(computerSelection) + " equals " + capitalize(playerSelection));
+         message.textContent = "It's a Draw! " + capitalize(computerSelection) + " equals " + capitalize(playerSelection);
          return internalCount; // If it is a draw I dont update the count
      }
      switch (strPlayer){
          case 'rock':  // I leave the original code commented
              //return (computerSelection === 'scissors') ? "You Win! Rock beats Scissors" : "You Lose! Paper beats Rock";
             if (computerSelection === 'scissors'){
-               console.log("You Win! Rock beats Scissors");
+               message.textContent = "You Win! Rock beats Scissors";
                internalCount[0]++;
                return internalCount;
             }
-            console.log("You Lose! Paper beats Rock");
+            message.textContent = "You Lose! Paper beats Rock";
             internalCount[1]++;
             return internalCount;
 
          case 'paper':
             //return (computerSelection === 'rock') ? "You Win! Paper beats Rock" : "You Lose! Scissors beat Paper";
             if (computerSelection === 'rock'){
-               console.log("You Win! Paper beats Rock");
+               message.textContent = "You Win! Paper beats Rock";
                internalCount[0]++;
                return internalCount;
             }
-            console.log("You Lose! Scissors beat Paper");
+            message.textContent = "You Lose! Scissors beat Paper";
             internalCount[1]++;
             return internalCount;
 
          case 'scissors':
             //return (computerSelection === 'paper') ? "You Win! Scissors beats Paper" : "You Lose! Rock beat Scissors"
             if (computerSelection === 'paper'){
-               console.log("You Win! Scissors beats Paper");
+               message.textContent = "You Win! Scissors beats Paper";
                internalCount[0]++;
                return internalCount;
             }
-            console.log("You Lose! Rock beat Scissors");
+            message.textContent = "You Lose! Rock beat Scissors";
             internalCount[1]++;
             return internalCount;
 
-         default:
-               //return "Please, choose Rock, Paper or Scissors"
-               console.log( "Please, choose Rock, Paper or Scissors");
-               return internalCount;
+            // Default now it does not exist
        }
    
    }
    
-   function game(playerSelection) {
-
-      let count=[0,0];
-      
-      const computerSelection = getComputerChoice();
-      count = playRound(playerSelection, computerSelection, count); // Now the function returns a counter to keep track
-      // This I will send to a div now
-      console.log("Total Score. Player: " + count[0] + " Computer: " + count[1])
-      
-
-      if (count[0]>count[1]) console.log("Congratulations. You won!");
-      else if (count[0]<count[1]) console.log("Sorry. You lost");
-      else console.log ("It was a draw");
-
-   }
-
+   
    const btn = document.querySelectorAll('button');
+   
+   let score=[0,0];
+   const playerScore = document.querySelector('#playerScore');
+   const computerScore = document.querySelector('#computerScore');
+   const playerChoice = document.querySelector('#playerChoice');
+   const computerChoice = document.querySelector('#computerChoice');
+
    btn.forEach(button=>button.addEventListener('click', function(e) {
-      game(this.id);
+      //game(this.id);
+      const computerSelection = getComputerChoice();
+
+      playerChoice.textContent = capitalize(this.id);
+      computerChoice.textContent = capitalize(computerSelection);
+
+      score = playRound(this.id, computerSelection, score); // Now the function returns a counter to keep track
       // I still have to display the results on the web
       // Instead of playing game I will probably add the logic and total counter out here
+      
+      playerScore.textContent = score[0];
+      computerScore.textContent = score[1];
     }));
+
+   
 
  
