@@ -2,11 +2,12 @@
 
 body {
     font-family: 'Tektur', cursive;
+    font-size: 16px;
     background-color: rgb(214, 214, 214);
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 4em;
 }
 
 .bold {
