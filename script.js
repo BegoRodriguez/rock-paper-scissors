@@ -32,6 +32,7 @@ function playRound(playerSelection, computerSelection, count) {
      let internalCount = [... count]; //Player-Computer
      let strPlayer = playerSelection.toLowerCase(); // We make case insensitive
      const message = document.querySelector('#message'); // To update the messages on screen
+     message.setAttribute('style','font-weight:normal');
      
 
      // rock beats scissors, scissors beat paper, paper beats rock (if they are the same it is a draw)
@@ -41,7 +42,7 @@ function playRound(playerSelection, computerSelection, count) {
      }
      switch (strPlayer){
          case 'rock':  // I leave the original code commented
-             //return (computerSelection === 'scissors') ? "You Win! Rock beats Scissors" : "You Lose! Paper beats Rock";
+          
             if (computerSelection === 'scissors'){
                message.textContent = "You Win! Rock beats Scissors";
                internalCount[0]++;
@@ -52,7 +53,7 @@ function playRound(playerSelection, computerSelection, count) {
             return internalCount;
 
          case 'paper':
-            //return (computerSelection === 'rock') ? "You Win! Paper beats Rock" : "You Lose! Scissors beat Paper";
+           
             if (computerSelection === 'rock'){
                message.textContent = "You Win! Paper beats Rock";
                internalCount[0]++;
@@ -63,7 +64,7 @@ function playRound(playerSelection, computerSelection, count) {
             return internalCount;
 
          case 'scissors':
-            //return (computerSelection === 'paper') ? "You Win! Scissors beats Paper" : "You Lose! Rock beat Scissors"
+         
             if (computerSelection === 'paper'){
                message.textContent = "You Win! Scissors beats Paper";
                internalCount[0]++;
@@ -78,28 +79,47 @@ function playRound(playerSelection, computerSelection, count) {
    
    }
    
-   
-   const btn = document.querySelectorAll('button');
-   
    let score=[0,0];
-   const playerScore = document.querySelector('#playerScore');
-   const computerScore = document.querySelector('#computerScore');
+
+   const btn = document.querySelectorAll('button');
+   const game = document.querySelector('#game');
+   const playerScore = document.querySelector('#playerScore');  // To update the player score
+   const computerScore = document.querySelector('#computerScore'); // To update the computer score
    const playerChoice = document.querySelector('#playerChoice');
    const computerChoice = document.querySelector('#computerChoice');
+   const message = document.querySelector('#message'); // To update the messages on screen
 
    btn.forEach(button=>button.addEventListener('click', function(e) {
+      game.setAttribute('style', 'display:inline; margin-left:auto; margin-right:auto;');
+      if (this.id === 'reset') {
+         score = [0,0];
+         playerScore.textContent = score[0];
+         computerScore.textContent = score[1];
+      }
       //game(this.id);
-      const computerSelection = getComputerChoice();
+      else {
+         const computerSelection = getComputerChoice();
 
-      playerChoice.textContent = capitalize(this.id);
-      computerChoice.textContent = capitalize(computerSelection);
-
-      score = playRound(this.id, computerSelection, score); // Now the function returns a counter to keep track
-      // I still have to display the results on the web
-      // Instead of playing game I will probably add the logic and total counter out here
+         score = playRound(this.id, computerSelection, score); // Now the function returns a counter to keep track
       
-      playerScore.textContent = score[0];
-      computerScore.textContent = score[1];
+         // We to display the choices and results on the web   
+         playerChoice.textContent = capitalize(this.id);
+         computerChoice.textContent = capitalize(computerSelection);
+         playerScore.textContent = score[0];
+         computerScore.textContent = score[1];
+
+         // Announce a winner of the game once one player reaches 5 points
+         if (score[0] === 5){
+            message.setAttribute('style','font-weight:bold'); // I put in bold to make it more visible
+            message.textContent = "Congratulations! You won.";
+            score = [0,0];
+         }
+         else if (score[1] === 5){
+            message.setAttribute('style','font-weight:bold');
+            message.textContent = "Maybe next time. Computer won.";
+            score = [0,0];
+         }
+      }
     }));
 
    

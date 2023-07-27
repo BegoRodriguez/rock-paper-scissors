@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Tektur:wght@400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Tektur', cursive;
+    background-color: rgb(214, 214, 214);
+}
+
+h1 {
+    font-size: 3em;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#game {
+    display: none;
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#message {
+    margin: 2em;
+    padding: 2em;
+    background-color: rgb(159, 159, 159);
+    font-style: italic;
+}

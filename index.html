@@ -2,35 +2,62 @@
 <html>
     <head>
         <meta charset="utf-8">
-        
         <title>Rock Paper Scissors</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-        
+        <link rel="stylesheet" href="./css/style.css">
+
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid mt-5">
 
-            <h1>Rock Paper Scissors</h1>
+            <h1 class="text-center">Rock Paper Scissors</h1>
 
             <!-- Create three buttons, one for each selection. -->
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissors">Scissors</button>
-
-            <div id="score">
-                <div id="playerScore"></div>
-                <div id="computerScore"></div>
+            <div id="buttons" class="mt-5 mb-5 ">
+                <div class="row">
+                    <div class="col-12">
+                        <button id="rock" class="btn btn-secondary">Rock</button>
+                        <button id="paper" class="btn btn-secondary">Paper</button>
+                        <button id="scissors" class="btn btn-secondary">Scissors</button>
+                    </div>
+                    
+                </div>
             </div>
 
-            <div id="round">
-                <div id="playerChoice"></div>
-                <div id="computerChoice"></div>
-                <div id="message"></div>
+            <div id="game" class="mt-3 text-center">
+                <div class="row">
+                    <div class="col-md-6" id="choice">
+                        <div class="row">
+                            <div class="col-md-6"><span class="bold">Your choice</span><div id="playerChoice"></div></div>
+                            <div class="col-md-6"><span class="bold">Computer's choice</span><div id="computerChoice"></div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6" id="score">
+                        <div class="row">
+                            <div class="col-md-6"><span class="bold">Player's score</span><div id="playerScore"></div></div>
+                            <div class="col-md-6"><span class="bold">Computer's score</span><div id="computerScore"></div></div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div id="message" class="text-center"></div>
+                <div id="round" class="mt-3">
+                    <button id="reset" class="btn btn-danger">Reset Score</button>
+                </div>
             </div>
             
-
         </div>
 
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+        crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        </script>
 
         <script src="script.js"></script> 
 
