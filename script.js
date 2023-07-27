@@ -31,72 +31,97 @@ function playRound(playerSelection, computerSelection, count) {
      
      let internalCount = [... count]; //Player-Computer
      let strPlayer = playerSelection.toLowerCase(); // We make case insensitive
+     const message = document.querySelector('#message'); // To update the messages on screen
+     message.setAttribute('style','font-weight:normal');
+     
 
      // rock beats scissors, scissors beat paper, paper beats rock (if they are the same it is a draw)
      if (strPlayer === computerSelection) {
-         console.log("It's a Draw! " + capitalize(computerSelection) + " equals " + capitalize(playerSelection));
+         message.textContent = "It's a Draw! " + capitalize(computerSelection) + " equals " + capitalize(playerSelection);
          return internalCount; // If it is a draw I dont update the count
      }
      switch (strPlayer){
          case 'rock':  // I leave the original code commented
-             //return (computerSelection === 'scissors') ? "You Win! Rock beats Scissors" : "You Lose! Paper beats Rock";
+          
             if (computerSelection === 'scissors'){
-               console.log("You Win! Rock beats Scissors");
+               message.textContent = "You Win! Rock beats Scissors";
                internalCount[0]++;
                return internalCount;
             }
-            console.log("You Lose! Paper beats Rock");
+            message.textContent = "You Lose! Paper beats Rock";
             internalCount[1]++;
             return internalCount;
 
          case 'paper':
-            //return (computerSelection === 'rock') ? "You Win! Paper beats Rock" : "You Lose! Scissors beat Paper";
+           
             if (computerSelection === 'rock'){
-               console.log("You Win! Paper beats Rock");
+               message.textContent = "You Win! Paper beats Rock";
                internalCount[0]++;
                return internalCount;
             }
-            console.log("You Lose! Scissors beat Paper");
+            message.textContent = "You Lose! Scissors beat Paper";
             internalCount[1]++;
             return internalCount;
 
          case 'scissors':
-            //return (computerSelection === 'paper') ? "You Win! Scissors beats Paper" : "You Lose! Rock beat Scissors"
+         
             if (computerSelection === 'paper'){
-               console.log("You Win! Scissors beats Paper");
+               message.textContent = "You Win! Scissors beats Paper";
                internalCount[0]++;
                return internalCount;
             }
-            console.log("You Lose! Rock beat Scissors");
+            message.textContent = "You Lose! Rock beat Scissors";
             internalCount[1]++;
             return internalCount;
 
-         default:
-               //return "Please, choose Rock, Paper or Scissors"
-               console.log( "Please, choose Rock, Paper or Scissors");
-               return internalCount;
+            // Default now it does not exist
        }
    
    }
    
-   function game() {
+   let score=[0,0];
 
-      let count=[0,0];
-      for (let i=0;i<5;i++){
-         const playerSelection = prompt("Choose rock, paper or scissors");
-         if (playerSelection == null) {
-            console.log("I hope you had fun. See you!")
-            return;
-         }
-         const computerSelection = getComputerChoice();
-         count = playRound(playerSelection, computerSelection, count); // Now the function returns a counter to keep track
-         console.log("Total Score. Player: " + count[0] + " Computer: " + count[1])
+   const btn = document.querySelectorAll('button');
+   const game = document.querySelector('#game');
+   const playerScore = document.querySelector('#playerScore');  // To update the player score
+   const computerScore = document.querySelector('#computerScore'); // To update the computer score
+   const playerChoice = document.querySelector('#playerChoice');
+   const computerChoice = document.querySelector('#computerChoice');
+   const message = document.querySelector('#message'); // To update the messages on screen
+
+   btn.forEach(button=>button.addEventListener('click', function(e) {
+      game.setAttribute('style', 'display:inline; margin-left:auto; margin-right:auto;');
+      if (this.id === 'reset') {
+         score = [0,0];
+         playerScore.textContent = score[0];
+         computerScore.textContent = score[1];
       }
+      //game(this.id);
+      else {
+         const computerSelection = getComputerChoice();
 
-      if (count[0]>count[1]) console.log("Congratulations. You won!");
-      else if (count[0]<count[1]) console.log("Sorry. You lost");
-      else console.log ("It was a draw");
+         score = playRound(this.id, computerSelection, score); // Now the function returns a counter to keep track
+      
+         // We to display the choices and results on the web   
+         playerChoice.textContent = capitalize(this.id);
+         computerChoice.textContent = capitalize(computerSelection);
+         playerScore.textContent = score[0];
+         computerScore.textContent = score[1];
 
-   }
+         // Announce a winner of the game once one player reaches 5 points
+         if (score[0] === 5){
+            message.setAttribute('style','font-weight:bold'); // I put in bold to make it more visible
+            message.textContent = "Congratulations! You won.";
+            score = [0,0];
+         }
+         else if (score[1] === 5){
+            message.setAttribute('style','font-weight:bold');
+            message.textContent = "Maybe next time. Computer won.";
+            score = [0,0];
+         }
+      }
+    }));
 
-   game();
+   
+
+ 
